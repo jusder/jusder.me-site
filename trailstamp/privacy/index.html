@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrailStamp Privacy Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --accent: #c8f564;
+      --text: #f0f0f0;
+      --muted: #777;
+      --border: #1e1e1e;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #222 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200,245,100,0.07) 0%, transparent 70%);
+      top: -100px;
+      left: -100px;
+      pointer-events: none;
+      z-index: 0;
+      animation: blobmove 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes blobmove {
+      from { transform: translate(0, 0); }
+      to { transform: translate(120px, 80px); }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 0 0;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.1s;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav a.back {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a.back:hover { color: var(--accent); }
+
+    .content {
+      padding: 72px 0 80px;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.3s;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .intro {
+      font-size: 0.95rem;
+      color: #aaa;
+      line-height: 1.8;
+      max-width: 620px;
+      margin-bottom: 48px;
+    }
+
+    .section {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 16px;
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .section h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .section p,
+    .section li {
+      font-size: 0.85rem;
+      color: #999;
+      line-height: 1.8;
+    }
+
+    .section p + p,
+    .section ul + p,
+    .section p + ul { margin-top: 12px; }
+
+    ul { padding-left: 20px; }
+    strong { color: var(--text); font-weight: 400; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    footer {
+      padding: 32px 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.5s;
+    }
+
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .wrapper { padding: 0 20px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <nav>
+      <a class="logo" href="/">jus<span>.</span>der</a>
+      <a class="back" href="/">Home</a>
+    </nav>
+
+    <main class="content">
+      <p class="eyebrow">TrailStamp</p>
+      <h1>Privacy<br>Policy</h1>
+      <p class="meta">Last updated: May 3, 2026</p>
+
+      <p class="intro">TrailStamp is a national parks journal and planning app. It is designed to keep personal memories private by default. TrailStamp does not sell personal data and does not use personal data for third-party advertising or tracking.</p>
+
+      <div class="section">
+        <h2>Information TrailStamp Uses</h2>
+        <p><strong>Park progress and journal details.</strong> TrailStamp stores the parks you mark as visited or planned, visit dates, ratings, notes, best moments, favorites, achievements, and trip plans. This information is used to show your progress, profile, plans, suggested parks, and year recap.</p>
+        <p><strong>Sign in with Apple profile.</strong> If you choose to sign in with Apple, TrailStamp may receive your Apple user identifier and, when Apple provides them, your name and email address. TrailStamp uses this information to show your account profile and sync supported app data with iCloud.</p>
+        <p><strong>iCloud sync.</strong> If you sign in and iCloud is available, TrailStamp syncs your park progress, notes, ratings, favorites, visit details, and account profile details using your private iCloud database. Trip plans are currently stored locally on the device where they are created.</p>
+      </div>
+
+      <div class="section">
+        <h2>Location</h2>
+        <p>TrailStamp may ask for location access to sort nearby parks, show distances, and make nearby park suggestions. Location is used for app functionality. TrailStamp does not sell location data.</p>
+      </div>
+
+      <div class="section">
+        <h2>Photos and Photo Metadata</h2>
+        <p>If you choose to import photos, TrailStamp stores compressed copies of those photos locally on your device for the photo journal. TrailStamp may read photo metadata such as capture date and GPS location to suggest a visit date or match a photo to a nearby national park.</p>
+        <p>Imported personal photo files are not uploaded by TrailStamp for iCloud sync.</p>
+      </div>
+
+      <div class="section">
+        <h2>Network Requests</h2>
+        <p>TrailStamp may make network requests to:</p>
+        <ul>
+          <li>National Park Service APIs for park data, official photos, operating hours, fees, and alerts.</li>
+          <li>NOAA/National Weather Service services for weather forecasts.</li>
+          <li>Apple MapKit for maps and map-related features.</li>
+          <li>Apple iCloud and Sign in with Apple services when you use account and sync features.</li>
+        </ul>
+        <p>TrailStamp does not currently use analytics SDKs, advertising SDKs, or third-party tracking SDKs.</p>
+      </div>
+
+      <div class="section">
+        <h2>How Information Is Used</h2>
+        <p>TrailStamp uses information to save and show your park progress, build your profile, manage trip plans, import and display your personal photo journal, sort parks by distance, sync supported progress and profile data through iCloud, and load official park, alert, weather, and map information.</p>
+      </div>
+
+      <div class="section">
+        <h2>Data Sharing</h2>
+        <p>TrailStamp does not sell your personal data. TrailStamp does not share your personal data with advertising networks or data brokers.</p>
+        <p>Some app features necessarily involve Apple services, such as iCloud, Sign in with Apple, and MapKit. TrailStamp also sends requests to NPS and NOAA/National Weather Service services to load public park and weather information.</p>
+      </div>
+
+      <div class="section">
+        <h2>Data Storage and Deletion</h2>
+        <p>TrailStamp stores app data locally on your device. If you sign in and iCloud sync is available, supported progress and profile data is also stored in your private iCloud database.</p>
+        <p>You can sign out from the TrailStamp Account section. You can also reset local and iCloud progress from the same section. Resetting clears TrailStamp progress records, signs you out, clears the local profile, and removes local personal photo files stored by TrailStamp on that device.</p>
+        <p>You can also delete the app from your device to remove local app data, subject to normal iOS and iCloud behavior.</p>
+      </div>
+
+      <div class="section">
+        <h2>Children</h2>
+        <p>TrailStamp is not intended to collect personal information from children for advertising or tracking. If children use the app, location, photo, account, and iCloud features should be managed by a parent or guardian through Apple device and family settings.</p>
+      </div>
+
+      <div class="section">
+        <h2>Changes</h2>
+        <p>This policy may be updated as TrailStamp changes. If the app adds new data collection, analytics, payments, sharing, or photo sync features, this policy and App Store privacy answers should be reviewed and updated.</p>
+      </div>
+
+      <div class="section">
+        <h2>Contact</h2>
+        <p>For privacy questions, contact the support email listed on TrailStamp's App Store page.</p>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; 2026 Jusder</span>
+      <span><a href="/privacy/">General privacy policy</a></span>
+    </footer>
+  </div>
+</body>
+</html>
