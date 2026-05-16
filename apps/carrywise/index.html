@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrywise – Pack smarter. Travel lighter.</title>
+  <meta name="description" content="Carrywise brings order to your packing. Build reusable kits, plan what goes in every bag, and prep for trips without the scramble." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --accent: #c8f564;
+      --text: #f0f0f0;
+      --muted: #555;
+      --border: #1e1e1e;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #222 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200,245,100,0.07) 0%, transparent 70%);
+      top: -100px;
+      left: -100px;
+      pointer-events: none;
+      z-index: 0;
+      animation: blobmove 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes blobmove {
+      from { transform: translate(0, 0); }
+      to   { transform: translate(120px, 80px); }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 0 0;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.1s;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+
+    nav a.back {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a.back:hover { color: var(--accent); }
+
+    .hero {
+      padding: 80px 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.3s;
+    }
+
+    .app-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 22px;
+      margin-bottom: 36px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--accent);
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #aaa;
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge-store {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 20px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .badge-store:hover { border-color: #444; transform: translateY(-1px); }
+    .badge-store-label {
+      display: flex;
+      flex-direction: column;
+    }
+    .badge-store-sub {
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .badge-store-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .badge-coming {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 8px 18px;
+    }
+
+    .features {
+      margin-top: 72px;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.5s;
+    }
+
+    .features-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .feature::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .feature:hover { border-color: #333; }
+    .feature:hover::before { transform: scaleX(1); }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .feature h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .app-links {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 24px;
+      font-size: 0.78rem;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.65s;
+    }
+
+    .app-links a {
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .app-links a:hover { color: var(--accent); }
+
+    footer {
+      padding: 32px 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.8s;
+    }
+
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .wrapper { padding: 0 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <nav>
+      <a class="logo" href="/">jus<span>.</span>der</a>
+      <a class="back" href="/">&#8592; All Apps</a>
+    </nav>
+
+    <main>
+      <div class="hero">
+        <img class="app-icon" src="/apps/carrywise/icon.png" alt="Carrywise app icon" onerror="this.style.display='none'" />
+        <p class="eyebrow">iOS App</p>
+        <h1>Pack smarter.<br><em>Travel lighter.</em></h1>
+        <p class="tagline">Carrywise brings order to your packing. Build reusable kits, plan what goes in every bag, and stay ready for every trip without the last-minute scramble.</p>
+
+        <div class="badges">
+          <span class="badge-coming">Available on the App Store</span>
+        </div>
+      </div>
+
+      <div class="features">
+        <p class="features-label">What it does</p>
+        <div class="feature-grid">
+          <div class="feature">
+            <span class="feature-icon">&#128230;</span>
+            <h3>Packing Kits</h3>
+            <p>Build reusable kits for any trip type. Define them once and reuse across every journey.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#127890;</span>
+            <h3>Bag Planning</h3>
+            <p>Assign items to specific bags so you always know exactly where everything goes.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#9989;</span>
+            <h3>Trip Prep</h3>
+            <p>Build departure checklists and prep tasks so nothing gets left behind before you head out.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#9729;</span>
+            <h3>iCloud Sync</h3>
+            <p>Trips, kits, and packing lists stay in sync across all your Apple devices automatically.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#8597;</span>
+            <h3>Export &amp; Import</h3>
+            <p>Back up or share your packing setups with flexible export and import tools.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#128276;</span>
+            <h3>Notifications</h3>
+            <p>Set trip reminders so you're packed and ready well before you need to be.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-links">
+        <a href="/apps/carrywise/privacy/">Privacy Policy</a>
+        <a href="/apps/carrywise/support/">Support</a>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; 2026 Jusder</span>
+      <span><a href="/">jusder.github.io</a></span>
+    </footer>
+
+  </div>
+</body>
+</html>

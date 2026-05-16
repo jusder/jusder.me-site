@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pick Me Up – Clean streets, together.</title>
+  <meta name="description" content="Pick Me Up makes it easy to organize and join community trash pickups in Denver. Coordinate events, track impact, and keep your city clean." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --accent: #c8f564;
+      --text: #f0f0f0;
+      --muted: #555;
+      --border: #1e1e1e;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #222 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200,245,100,0.07) 0%, transparent 70%);
+      top: -100px;
+      left: -100px;
+      pointer-events: none;
+      z-index: 0;
+      animation: blobmove 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes blobmove {
+      from { transform: translate(0, 0); }
+      to   { transform: translate(120px, 80px); }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 0 0;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.1s;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+
+    nav a.back {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a.back:hover { color: var(--accent); }
+
+    .hero {
+      padding: 80px 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.3s;
+    }
+
+    .app-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 22px;
+      margin-bottom: 36px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--accent);
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #aaa;
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge-coming {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 8px 18px;
+    }
+
+    .features {
+      margin-top: 72px;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.5s;
+    }
+
+    .features-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .feature::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .feature:hover { border-color: #333; }
+    .feature:hover::before { transform: scaleX(1); }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .feature h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      margin-top: 64px;
+      padding: 32px 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.8s;
+    }
+
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .wrapper { padding: 0 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <nav>
+      <a class="logo" href="/">jus<span>.</span>der</a>
+      <a class="back" href="/">&#8592; All Apps</a>
+    </nav>
+
+    <main>
+      <div class="hero">
+        <img class="app-icon" src="/apps/pickmeup/icon.png" alt="Pick Me Up app icon" onerror="this.style.display='none'" />
+        <p class="eyebrow">iOS App</p>
+        <h1>Clean streets,<br><em>together.</em></h1>
+        <p class="tagline">Pick Me Up makes it easy to organize and join community trash pickups in Denver. Coordinate events, track your impact, and keep your city clean.</p>
+
+        <div class="badges">
+          <span class="badge-coming">In Development</span>
+        </div>
+      </div>
+
+      <div class="features">
+        <p class="features-label">What it does</p>
+        <div class="feature-grid">
+          <div class="feature">
+            <span class="feature-icon">&#128197;</span>
+            <h3>Community Events</h3>
+            <p>Find and join local trash pickup events happening near you in Denver.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#127881;</span>
+            <h3>Event Hosting</h3>
+            <p>Create and share pickup events with your neighborhood in just a few taps.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#128202;</span>
+            <h3>Impact Tracking</h3>
+            <p>See the collective difference your community is making over time.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#128205;</span>
+            <h3>Route Planning</h3>
+            <p>Map out efficient pickup routes for your corner of the city.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; 2026 Jusder</span>
+      <span><a href="/">jusder.github.io</a></span>
+    </footer>
+
+  </div>
+</body>
+</html>
