@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SheetWise – Cut smarter. Waste less.</title>
+  <meta name="description" content="SheetWise optimizes how you cut pieces from sheet materials. Plan layouts, track costs, and export PDF cut sheets — all on your device." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --accent: #c8f564;
+      --text: #f0f0f0;
+      --muted: #555;
+      --border: #1e1e1e;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #222 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200,245,100,0.07) 0%, transparent 70%);
+      top: -100px;
+      left: -100px;
+      pointer-events: none;
+      z-index: 0;
+      animation: blobmove 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes blobmove {
+      from { transform: translate(0, 0); }
+      to   { transform: translate(120px, 80px); }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 0 0;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.1s;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+
+    nav a.back {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a.back:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      padding: 80px 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.3s;
+    }
+
+    .app-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 22px;
+      margin-bottom: 36px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--accent);
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #aaa;
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge-store {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 20px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .badge-store:hover { border-color: #444; transform: translateY(-1px); }
+    .badge-store-label {
+      display: flex;
+      flex-direction: column;
+    }
+    .badge-store-sub {
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .badge-store-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .badge-store svg { opacity: 0.7; }
+
+    .badge-coming {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 8px 18px;
+    }
+
+    /* FEATURES */
+    .features {
+      margin-top: 72px;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.5s;
+    }
+
+    .features-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .feature::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .feature:hover { border-color: #333; }
+    .feature:hover::before { transform: scaleX(1); }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .feature h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* LINKS */
+    .app-links {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 24px;
+      font-size: 0.78rem;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.65s;
+    }
+
+    .app-links a {
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .app-links a:hover { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      padding: 32px 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.8s;
+    }
+
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .wrapper { padding: 0 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <nav>
+      <a class="logo" href="/">jus<span>.</span>der</a>
+      <a class="back" href="/">← All Apps</a>
+    </nav>
+
+    <main>
+      <div class="hero">
+        <img class="app-icon" src="/apps/sheetwise/icon.png" alt="SheetWise app icon" />
+        <p class="eyebrow">iOS &amp; iPadOS App</p>
+        <h1>Cut smarter.<br><em>Waste less.</em></h1>
+        <p class="tagline">SheetWise calculates the most efficient way to cut your pieces from sheet materials. Define your sheets, list your pieces, and get an optimized layout — no spreadsheets required.</p>
+
+        <div class="badges">
+          <span class="badge-coming">Coming to the App Store</span>
+        </div>
+      </div>
+
+      <div class="features">
+        <p class="features-label">What it does</p>
+        <div class="feature-grid">
+          <div class="feature">
+            <span class="feature-icon">&#9632;</span>
+            <h3>Optimized Layouts</h3>
+            <p>Packs your pieces onto sheets with minimal waste using an efficient bin-packing algorithm.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#128196;</span>
+            <h3>Templates</h3>
+            <p>Save your standard sheet sizes and material types as reusable templates. Start any project in seconds.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#128230;</span>
+            <h3>Multi-Sheet Support</h3>
+            <p>Automatically spans pieces across as many sheets as needed when one isn't enough.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#128176;</span>
+            <h3>Cost Tracking</h3>
+            <p>Enter the price per sheet and see your total material cost update in real time.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#128247;</span>
+            <h3>PDF Export</h3>
+            <p>Export a clean, print-ready cut sheet PDF to take to the shop or share with a fabricator.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">&#127757;</span>
+            <h3>Metric &amp; Imperial</h3>
+            <p>Toggle between metric and imperial units at any time. Works the way you work.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-links">
+        <a href="/apps/sheetwise/privacy/">Privacy Policy</a>
+        <a href="mailto:hello@jusder.me">Support</a>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; 2026 Jusder</span>
+      <span><a href="/">jusder.github.io</a></span>
+    </footer>
+
+  </div>
+</body>
+</html>
