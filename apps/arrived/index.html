@@ -226,8 +226,27 @@
       line-height: 1.6;
     }
 
-    footer {
+    .app-links {
       margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 24px;
+      font-size: 0.78rem;
+      opacity: 0;
+      animation: fadeup 0.6s ease forwards 0.65s;
+    }
+
+    .app-links a {
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .app-links a:hover { color: var(--accent); }
+
+    footer {
       padding: 32px 0 40px;
       display: flex;
       justify-content: space-between;
@@ -313,6 +332,10 @@
             <p>Add saved places and lightweight stops before you leave so you arrive knowing what you want to see.</p>
           </div>
         </div>
+      </div>
+
+      <div class="app-links">
+        <a href="mailto:hello@jusder.me">Support</a>
       </div>
     </main>
 
