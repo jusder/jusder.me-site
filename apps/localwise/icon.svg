@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">LocalWise icon</title>
+  <desc id="desc">A map pin over a folded local map.</desc>
+  <defs>
+    <linearGradient id="bg" x1="128" y1="96" x2="896" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7f4e8"/>
+      <stop offset="1" stop-color="#d8f45f"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="358" y1="202" x2="666" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset="1" stop-color="#30321c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="220" fill="url(#bg)"/>
+  <path d="M192 342c0-39 32-70 71-70h74l118 66 116-66h190c39 0 71 31 71 70v340c0 39-32 70-71 70H571l-116-66-118 66h-74c-39 0-71-31-71-70V342Z" fill="#fffdf4"/>
+  <path d="M337 272v480M571 272v480" fill="none" stroke="#d9d6c5" stroke-width="34"/>
+  <path d="M256 412h126M642 412h126M256 548h126M642 548h126M256 684h126M642 684h126" fill="none" stroke="#c5c2ae" stroke-width="28" stroke-linecap="round"/>
+  <path d="M512 164c-126 0-228 101-228 226 0 171 228 414 228 414s228-243 228-414c0-125-102-226-228-226Z" fill="url(#pin)"/>
+  <circle cx="512" cy="390" r="82" fill="#d8f45f"/>
+  <path d="M476 391l25 25 54-64" fill="none" stroke="#111" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
