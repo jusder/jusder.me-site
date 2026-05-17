@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jusder</title>
+  <meta name="description" content="Small, thoughtful apps for travel, local life, planning, and everyday tools. Built by Justin in Denver." />
+  <meta property="og:title" content="Jusder" />
+  <meta property="og:description" content="Small, thoughtful apps for travel, local life, planning, and everyday tools. Built by Justin in Denver." />
+  <meta property="og:image" content="https://jusder.me/assets/jusder-ig-avatar.png" />
+  <link rel="icon" type="image/png" href="assets/jusder-logo.png" />
+  <link rel="apple-touch-icon" href="assets/jusder-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
@@ -85,6 +91,17 @@
       letter-spacing: -0.02em;
       color: var(--text);
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      display: block;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
     }
 
     .logo span { color: var(--accent); }
@@ -99,12 +116,42 @@
     }
     nav a:hover { color: var(--accent); }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
     /* HERO */
     .hero {
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 80px 0 60px;
+    }
+
+    .hero-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(180px, 300px);
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
+    .hero-mark {
+      width: min(100%, 300px);
+      aspect-ratio: 1;
+      justify-self: end;
+      border-radius: 30px;
+      display: block;
+      box-shadow:
+        0 28px 70px rgba(0,0,0,0.48),
+        0 0 0 1px rgba(255,255,255,0.08);
+      opacity: 0;
+      animation: fadeup 0.7s ease forwards 0.45s;
     }
 
     .eyebrow {
@@ -242,6 +289,26 @@
     }
     footer a:hover { color: var(--accent); }
 
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .social-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: block;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+    }
+
     @keyframes fadeup {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -249,12 +316,30 @@
 
     @media (max-width: 900px) {
       .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-head {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .hero-mark {
+        justify-self: start;
+        width: min(68vw, 240px);
+        order: -1;
+      }
     }
 
     @media (max-width: 600px) {
       .wrapper { padding: 0 20px; }
       .apps { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 12px; text-align: center; }
+      .nav-links { gap: 14px; }
+      .hero { padding: 56px 0 48px; }
+      .hero-mark {
+        width: min(72vw, 220px);
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
   </style>
 </head>
@@ -262,14 +347,25 @@
   <div class="wrapper">
 
     <nav>
-      <a class="logo" href="/">jus<span>.</span>der</a>
-      <a href="/privacy">Privacy</a>
+      <a class="logo" href="/">
+        <img src="assets/jusder-logo.png" alt="" />
+        jus<span>.</span>der
+      </a>
+      <div class="nav-links">
+        <a href="https://www.instagram.com/jusder.me/">Instagram</a>
+        <a href="/privacy">Privacy</a>
+      </div>
     </nav>
 
     <main class="hero">
-      <p class="eyebrow">Independent iOS Developer</p>
-      <h1>Apps built<br>with <em>care.</em></h1>
-      <p class="tagline">Small studio. Thoughtful software. Based in Denver, CO.</p>
+      <div class="hero-head">
+        <div class="hero-copy">
+          <p class="eyebrow">Independent iOS Developer</p>
+          <h1>Apps built<br>with <em>care.</em></h1>
+          <p class="tagline">Small, thoughtful apps for travel, local life, planning, and everyday tools. Built by Justin in Denver.</p>
+        </div>
+        <img class="hero-mark" src="assets/jusder-logo.png" alt="Jusder logo" />
+      </div>
 
       <div class="apps">
         <div class="card">
@@ -326,7 +422,11 @@
 
     <footer>
       <span>© 2026 Jusder</span>
-      <span><a href="mailto:hello@jusder.me">hello@jusder.me</a> &nbsp;·&nbsp; <a href="/privacy">Privacy Policy</a></span>
+      <span class="footer-links">
+        <a class="social-link" href="https://www.instagram.com/jusder.me/"><img class="social-avatar" src="assets/jusder-ig-avatar.png" alt="" />@jusder.me</a>
+        <a href="mailto:hello@jusder.me">hello@jusder.me</a>
+        <a href="/privacy">Privacy Policy</a>
+      </span>
     </footer>
 
   </div>
