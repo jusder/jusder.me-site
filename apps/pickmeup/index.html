@@ -161,6 +161,23 @@
       padding: 8px 18px;
     }
 
+    .badge-try {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      border-radius: 99px;
+      padding: 9px 20px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .badge-try:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(200,245,100,0.25);
+    }
+
     .features {
       margin-top: 72px;
       opacity: 0;
@@ -294,6 +311,7 @@
         <p class="tagline">Pick Me Up makes it easy to organize and join community trash pickups in Denver. Coordinate events, track your impact, and keep your city clean.</p>
 
         <div class="badges">
+          <a class="badge-try" href="https://pick-me-up-prd-606928026726.us-west1.run.app/" target="_blank" rel="noopener">Try the beta &#8594;</a>
           <span class="badge-coming">In Development</span>
         </div>
       </div>
